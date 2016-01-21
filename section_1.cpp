@@ -51,17 +51,28 @@ int main(int argc, const char *argv[]) {
     cout << "Alright, " << response << " to you too" << endl;
     cout << "Enjoy the ride" << endl;
 
-    GrafixRules::Printer my_printer;
+    GrafixRules::Printer my_printer(-2,2);
 
     // Shoutout to the Python fans:
-    auto my_function = [] (float x) { 
-        return sin(x * 3.1415f/180.f) + cos(5 + 2*x * 3.1415f/180.f); };
+    float deg_to_rad = 3.1415f/180.f;
+    auto my_function = [deg_to_rad] (float x) { 
+        return sin(x * deg_to_rad) + cos(5 + 2 * x * deg_to_rad); };
+
+
 
     usleep(1000*1000 * 2);
     int i = 0;
+    vector<float> function_history;
+    float *fh = &function_history[0];
     while (true) {
         i += 2;
-        my_printer.graph(my_function(i));
+        function_history.push_back(my_function(i));
+
+        my_printer.graph(function_history.back());
+
+        // index = function_history.size() - 1;
+        // my_printer.graph(function_history[index]);
+
         usleep(10000);
     }
 

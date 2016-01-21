@@ -14,7 +14,6 @@ public:
     void graph(float x);
 
 protected:
-    // Always use protection
 
 private:
     float left_bound, right_bound;
